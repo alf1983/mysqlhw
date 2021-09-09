@@ -6,7 +6,7 @@
 	FROM messages
 	INNER JOIN users ON
 		messages.from_user_id = users.id
-	AND
+	WHERE 
 		messages.to_user_id = 5
 	GROUP BY from_user_id
 	ORDER BY mesages_count
@@ -19,7 +19,7 @@
 			ON posts.id = posts_likes.post_id
 		JOIN profiles
 			ON profiles.user_id = posts.user_id
-		AND TIMESTAMPDIFF(YEAR, profiles.birthday, NOW()) < 10;
+		WHERE TIMESTAMPDIFF(YEAR, profiles.birthday, NOW()) < 10;
 
 -- Упражнение 3
 	SELECT
@@ -29,14 +29,14 @@
 				JOIN profiles
 				ON
 					profiles.user_id = posts_likes.user_id
-				AND
+				WHERE 
 					profiles.gender = 'm'
 			) > (
 				SELECT COUNT(*) FROM posts_likes
 				JOIN profiles
 				ON
 					profiles.user_id = posts_likes.user_id
-				AND
+				WHERE 
 					profiles.gender = 'f'
 			),
 			'Мужчины поставили больше лайков',
